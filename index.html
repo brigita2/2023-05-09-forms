@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+</head>
+<body>
+    <form id="student-form">    
+       <div class="form-control">
+        <label for="student-name">Name:</label>
+        <input type="text" name="name" id="student-name" placeholder="Enter name">
+       </div>
+
+       <div class="form-control">
+        <label for="student-surname">Surname:</label>
+        <input type="text" name="surname" id="student-surname" placeholder="Enter surname">
+       </div>
+
+       <div class="form-control">
+        <label for="student-age">Age:</label>
+        <input type="number" name="age" id="student-age" placeholder="Enter age">
+       </div>
+
+       <div class="form-control">
+        <label for="student-phone">Phone:</label>
+        <input type="tel" name="phone" id="student-phone" placeholder="Enter phone number">
+       </div>
+
+       <div class="form-control">
+        <label for="student-email">Email:</label>
+        <input type="email" name="email" id="student-email" placeholder="Enter email">
+
+        <div class="form-control">
+            <label for="student-it-knowledge">IT Knowledge:</label>
+            <input type="range" name="it-knowledge" id="student-it-knowledge" min="1" max="10">
+       </div>
+
+       <fieldset>
+        <legend>Group:</legend>
+
+        <div class="form-control">
+            <label for="group-1">FEU 1gr.:</label>
+            <input type="radio" name="group" id="group-1" value="feu 1">
+       </div>
+
+       <div class="form-control">
+        <label for="group-2">FEU 2gr.:</label>
+        <input type="radio" name="group" id="group-2" value="feu 2">
+   </div>
+
+   <div class="form-control">
+    <label for="group-3">FEU 3gr.:</label>
+    <input type="radio" name="group" id="group-3" value="feu 3">
+</div>
+
+<div class="form-control">
+    <label for="group-4">FEU 4gr.:</label>
+    <input type="radio" name="group" id="group-4" value="feu 4">
+</div>
+
+       </fieldset>
+
+       <input type="submit" value="Create student">
+    </form>
+
+    <script src="/script.js"></script>
+</body>
+</html>
