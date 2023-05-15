@@ -12,6 +12,21 @@
 
 const studentForm = document.getElementById('student-form');
 
+// 7. Range reikšmės atvaizdavimas naujame elemente.
+
+function itKnowledgeChangeHandler() {
+    const studentItKnowledgeInput = document.querySelector('#student-it-knowledge');
+    const studentItKnowledgeOutput = document.querySelector('#student-it-knowledge-output');
+
+    studentItKnowledgeOutput.textContent = studentItKnowledgeInput.value;
+
+    studentItKnowledgeInput.addEventListener('input', (event) => {
+    studentItKnowledgeOutput.textContent = event.target.value;
+});
+};
+
+itKnowledgeChangeHandler();
+
 
 studentForm.addEventListener('submit', (event) => {
 event.preventDefault();
@@ -52,6 +67,8 @@ const phone = form.phone.value;
 const email = form.email.value;
 const itKnowledge = form['it-knowledge'].value;
 const group = form.group.value;
+const interests = form.querySelectorAll('[name="interests"]:checked');  //checkboxo nodeListas
+
 
 // console.log(name)
 // console.log(surname)
@@ -77,10 +94,10 @@ const ageElement = document.createElement('p');
 ageElement.innerHTML = `<strong>Age:</strong> ${age}`;
 
 const phoneElement = document.createElement('p');
-phoneElement.innerHTML = `<strong>Phone:</strong> ${phone}`;
+phoneElement.innerHTML = `<strong>Phone:</strong> *****`;
 
 const emailElement = document.createElement('p');
-emailElement.innerHTML = `<strong>Email:</strong> ${email}`;
+emailElement.innerHTML = `<strong>Email:</strong> *****`;
 
 const itKnowledgeElement = document.createElement('p');
 itKnowledgeElement.innerHTML = `<strong>IT Knowledge:</strong> ${itKnowledge}`;
@@ -88,8 +105,80 @@ itKnowledgeElement.innerHTML = `<strong>IT Knowledge:</strong> ${itKnowledge}`;
 const groupElement = document.createElement('p');
 groupElement.innerHTML = `<strong>Group:</strong> ${group}`;
 
+const interestsWrapper = document.createElement('div');
+const interestsTitle = document.createElement('h3');
+interestsTitle.textContent = 'Students interests:';
+
+const interestList = document.createElement('ul');
+
+interests.forEach(interest => {
+    const interestElement = document.createElement('li');
+    interestElement.textContent = interest.value;
+    interestList.append(interestElement);
+});
+
+interestsWrapper.append(interestsTitle, interestList);
 
 
-studentItem.append(nameElement, surnameElement, ageElement, phoneElement, emailElement, itKnowledgeElement, groupElement);
+
+// TREČIA DALIS:
+// 1. Vietoje el. pašto rodyti tik žvaigždutes „****".
+// 2. Kiekviename „student-item" elemente sukurti mygtuką „Rodyti asmens duomenis".
+// 3. Paspaudus šį mygtuką:
+//     3.1. Parodyti to studento el. paštą.
+//     3.2. Pakeist mygtuko tekstą į „Slėpti asmens duomenis".
+// 4. Jeigu asmens duomenys yra rodomi, tai paspaudus mygtuką:
+//     4.1. Paslėpti asmens el. paštą.
+//     4.2. Mygtuko tekstą pakeisti į „Rodyti asmens duomenis".
+
+
+
+const privateInfoButton = document.createElement('button');
+privateInfoButton.textContent = 'Show private info';
+
+const privateInfoHidden = true;
+
+privateInfoButton.addEventListener('click', () => {
+    privateInfoHidden = !privateInfoHidden;
+
+    if (privateInfoHidden) {
+        phoneElement.innerHTML = `<strong>Phone:</strong> *****`;
+        emailElement.innerHTML = `<strong>Email:</strong> *****`;
+        privateInfoButton.textContent = 'Show private info';
+    } else {
+        phoneElement.innerHTML = `<strong>Phone:</strong> ${phone}`;
+        emailElement.innerHTML = `<strong>Email:</strong> ${email}`;
+        privateInfoButton.textContent = 'Hide private info'
+    }
+});
+
+// KETVIRTA DALIS (studento ištrynimas):
+// 1. Prie kiekvieno sukurti studento elemento pridėti mygtuką „Ištrinti studentą".
+// 2. Paspaudus šį mygtuką, studento elementas yra ištrinamas.
+// 3. Ištrynus studentą, turi iššokti <span> elementas, kuris informuoja apie studento ištrynimą: „Studentas (Vardas Pavardė) sėkmingai ištrintas.". Šis span elementas dingsta po 5 sekundžių.
+
+const removeStudentButton = document.createElement('button');
+removeStudentButton.textContent = 'Remove Student';
+
+removeStudentButton.addEventListener('click', () => {
+    studentItem.remove();
+})
+
+studentItem.append(nameElement, surnameElement, ageElement, phoneElement, emailElement, itKnowledgeElement, groupElement,interestsWrapper, privateInfoButton, removeStudentButton);
 studentsList.prepend(studentItem);
+
+form.reset();
+itKnowledgeChangeHandler();
+
+
+// 6. Sukūrus studentą, turi iššokti <span> elementas, kuris informuoja apie studento sukūrimą: „Sukurtas studentas (Vardas Pavardė)". Šis span elementas dingsta po 5 sekundžių.
+
+const alertMessage = document.querySelector('#alert-message');
+alertMessage.textContent = `Student ${name} ${surname} created`;
+alertMessage.style.color = 'Green';
+setTimeout(() => {
+    alertMessage.textContent = '';
+}, 3000);
+
+
 })

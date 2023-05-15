@@ -34,7 +34,8 @@
 
         <div class="form-control">
             <label for="student-it-knowledge">IT Knowledge:</label>
-            <input type="range" name="it-knowledge" id="student-it-knowledge" min="1" max="10">
+            <input type="range" name="it-knowledge" id="student-it-knowledge" min="1" max="10" value="5">
+            <output id="student-it-knowledge-output" name="result" for="student-it-knowledge"></output>
        </div>
 
        <fieldset>
@@ -62,8 +63,30 @@
 
        </fieldset>
 
+       <fieldset>
+        <legend>Interests:</legend>
+
+        <div class="form-control">
+            <label for="interests-1">JavaScript</label>
+            <input type="checkbox" name="interests" id="interests-1" value="JavaScript">
+       </div>
+
+       <div class="form-control">
+        <label for="interests-2">PHP</label>
+        <input type="checkbox" name="interests" id="interests-2" value="PHP">
+   </div>
+
+   <div class="form-control">
+    <label for="interests-3">Java</label>
+    <input type="checkbox" name="interests" id="interests-3" value="Java">
+</div>
+       </fieldset>
+
        <input type="submit" value="Create student">
     </form>
+
+<span id="alert-message"></span>
+
     <div id="students-list"></div>
     <script src="/script.js"></script>
 </body>
