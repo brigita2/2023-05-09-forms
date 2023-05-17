@@ -12,7 +12,6 @@
 
 const studentForm = document.getElementById('student-form');
 
-// 7. Range reikšmės atvaizdavimas naujame elemente.
 
 function itKnowledgeChangeHandler() {
     const studentItKnowledgeInput = document.querySelector('#student-it-knowledge');
@@ -57,8 +56,61 @@ event.preventDefault();
 // 1. Sukurti div elementą, kuris turės id „students-list".
 // 2. Kiekvieną kartą pridavus formą (submit), turi būti sukurtas naujas div elementas su klase „student-item" ir pridedamas į „students-list" elemento pradžią.
 // 3. Duomenys apie studentą turi būti įdėti į „student-item" elementą.
-
 const form = event.target;
+
+const inputErrorMessages = form.querySelectorAll('.input-error-message');   //kai paselektinam tik ta formą, tada nebus error jeigu bus daugiau formų 
+
+inputErrorMessages.forEach(errorMessage => {
+    errorMessage.style.display = 'none';
+})
+
+
+const requiredFields = form.querySelectorAll('input:required');  
+
+let isValid = true;
+
+requiredFields.forEach((requiredField) => {
+    console.log(requiredField);
+    requiredField.classList.remove('input-error');
+
+
+    if (!requiredField.value) {
+        console.log('Laukelis užpildytas neteisingai');
+    
+        requiredField.classList.add('input-error');
+    
+        let inputErrorMessage = document.createElement('span');
+        inputErrorMessage.classList.add('input-error-message');
+        inputErrorMessage.textContent = 'Required field';
+    
+        requiredField.after(inputErrorMessage);
+
+        isValid = fa
+        
+        lse;
+    } else {
+        if(requiredField.name === 'name') {
+            if(requiredField.value.length < 3) {
+                requiredField.classList.add('input-error');
+    
+                let inputErrorMessage = document.createElement('span');
+                inputErrorMessage.classList.add('input-error-message');
+                inputErrorMessage.textContent = 'Vardas privalo būti bent 3 simbolių ilgumo';
+            
+                requiredField.after(inputErrorMessage);
+            
+                isValid = false;
+            }
+        }
+    }
+})
+
+if (!isValid) {
+    renderAlertMessage (`Some fields are missing`, 'red');
+    return;
+}
+
+
 
 const name = form.name.value;
 const surname = form.surname.value;
@@ -136,7 +188,7 @@ interestsWrapper.append(interestsTitle, interestList);
 const privateInfoButton = document.createElement('button');
 privateInfoButton.textContent = 'Show private info';
 
-const privateInfoHidden = true;
+let privateInfoHidden = true;
 
 privateInfoButton.addEventListener('click', () => {
     privateInfoHidden = !privateInfoHidden;
@@ -162,6 +214,8 @@ removeStudentButton.textContent = 'Remove Student';
 
 removeStudentButton.addEventListener('click', () => {
     studentItem.remove();
+
+    renderAlertMessage (`Student ${name} ${surname} removed`, 'red');
 })
 
 studentItem.append(nameElement, surnameElement, ageElement, phoneElement, emailElement, itKnowledgeElement, groupElement,interestsWrapper, privateInfoButton, removeStudentButton);
@@ -173,12 +227,16 @@ itKnowledgeChangeHandler();
 
 // 6. Sukūrus studentą, turi iššokti <span> elementas, kuris informuoja apie studento sukūrimą: „Sukurtas studentas (Vardas Pavardė)". Šis span elementas dingsta po 5 sekundžių.
 
-const alertMessage = document.querySelector('#alert-message');
-alertMessage.textContent = `Student ${name} ${surname} created`;
-alertMessage.style.color = 'Green';
-setTimeout(() => {
+renderAlertMessage (`Student ${name} ${surname} created`, 'green');
+})
+
+function renderAlertMessage (text, color) {
+    const alertMessage = document.querySelector('#alert-message');
+    alertMessage.textContent = text;
+    alertMessage.style.color = color;
+
+    setTimeout(() => {
     alertMessage.textContent = '';
 }, 3000);
 
-
-})
+}
